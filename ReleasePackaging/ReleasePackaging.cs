@@ -20,7 +20,6 @@ namespace Elskom.Generic.Libs
         /// <param name="args">The command line arguments passed into the calling process.</param>
         public static void PackageRelease(string[] args)
         {
-            // files to exclude from Release zip.
             var outfilename = string.Empty;
             if (args[1].StartsWith(".\\"))
             {
