@@ -11,7 +11,7 @@
 		<RepositoryUrl>https://github.com/Elskom/ReleasePackaging/</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/Elskom/ReleasePackaging/</PackageProjectUrl>
 		<PackageLicenseUrl>https://github.com/Elskom/ReleasePackaging/blob/master/LICENSE</PackageLicenseUrl>
-		<Copyright>Copyright (c) 2018</Copyright>
+		<Copyright>Copyright (c) 2018-2019</Copyright>
 		<Description>A .NET library for handling application's release packaging command line.</Description>
 		<PackageReleaseNotes>Initial release.</PackageReleaseNotes>
 		<Version>1.0.0</Version>
