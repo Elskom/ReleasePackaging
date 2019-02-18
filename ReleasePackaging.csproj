@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netcoreapp1.0;netcoreapp1.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netstandard1.3;netstandard1.4;netstandard1.5;netstandard1.6;netstandard2.0;net45;net451;net452;net46;net461;net462;net47;net471;net472</TargetFrameworks>
+		<TargetFrameworks>netcoreapp1.0;netcoreapp1.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netstandard1.3;netstandard1.4;netstandard1.5;netstandard1.6;netstandard2.0;net45;net451;net452;net46;net461;net462;net47;net471;net472;net48</TargetFrameworks>
 		<AssemblyName>ReleasePackaging</AssemblyName>
 		<LangVersion>latest</LangVersion>
 		<Company>Els_kom org.</Company>
@@ -10,7 +10,7 @@
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/Elskom/ReleasePackaging/</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/Elskom/ReleasePackaging/</PackageProjectUrl>
-		<PackageLicenseUrl>https://github.com/Elskom/ReleasePackaging/blob/master/LICENSE</PackageLicenseUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Copyright>Copyright (c) 2018-2019</Copyright>
 		<Description>A .NET library for handling application's release packaging command line.</Description>
 		<PackageReleaseNotes>Added reference assemblies.</PackageReleaseNotes>
@@ -18,6 +18,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<SignAssembly>false</SignAssembly>
 		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+		<NoWarn>$(NoWarn);NU5104;NU5118</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,6 +33,25 @@
 		<!-- Add debugging symbols. -->
 		<TfmSpecificPackageFile Include="$(OutputPath)/$(ProjectName).pdb">
 			<PackagePath>lib/$(TargetFramework)</PackagePath>
+		</TfmSpecificPackageFile>
+		<!-- Add source code. -->
+		<TfmSpecificPackageFile Include="$(ProjectPath)">
+			<PackagePath>src/$(ProjectName)/$(ProjectFileName)</PackagePath>
+		</TfmSpecificPackageFile>
+		<TfmSpecificPackageFile Include="$(ProjectDir)/$(ProjectName)/">
+			<PackagePath>src/$(ProjectName)/$(ProjectName)/</PackagePath>
+		</TfmSpecificPackageFile>
+		<TfmSpecificPackageFile Include="$(ProjectDir)/README.md">
+			<PackagePath>src/$(ProjectName)/README.md</PackagePath>
+		</TfmSpecificPackageFile>
+		<TfmSpecificPackageFile Include="$(ProjectDir)/stylecop.json">
+			<PackagePath>src/$(ProjectName)/stylecop.json</PackagePath>
+		</TfmSpecificPackageFile>
+		<TfmSpecificPackageFile Include="$(ProjectDir)/global.json">
+			<PackagePath>src/$(ProjectName)/global.json</PackagePath>
+		</TfmSpecificPackageFile>
+		<TfmSpecificPackageFile Include="$(ProjectDir)/$(ProjectName).ruleset">
+			<PackagePath>src/$(ProjectName)/$(ProjectName).ruleset</PackagePath>
 		</TfmSpecificPackageFile>
 	</ItemGroup>
 
