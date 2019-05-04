@@ -20,7 +20,12 @@ namespace Elskom.Generic.Libs
         /// <param name="args">The command line arguments passed into the calling process.</param>
         public static void PackageRelease(string[] args)
         {
-            var outfilename = string.Empty;
+            if (args == null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+
+            string outfilename;
             if (args[1].StartsWith(".\\"))
             {
                 // Replace spaces with periods.
@@ -56,13 +61,13 @@ namespace Elskom.Generic.Libs
                     foreach (var fi1 in di1.GetFiles("*.exe"))
                     {
                         var exe_file = fi1.Name;
-                        zipFile.CreateEntryFromFile(exe_file, exe_file);
+                        _ = zipFile.CreateEntryFromFile(exe_file, exe_file);
                     }
 
                     foreach (var fi2 in di1.GetFiles("*.dll"))
                     {
                         var dll_file = fi2.Name;
-                        zipFile.CreateEntryFromFile(dll_file, dll_file);
+                        _ = zipFile.CreateEntryFromFile(dll_file, dll_file);
                     }
 
                     foreach (var fi3 in di1.GetFiles("*.xml"))
@@ -70,20 +75,20 @@ namespace Elskom.Generic.Libs
                         var xml_file = fi3.Name;
                         if (!xml_file.EndsWith(".CodeAnalysisLog.xml"))
                         {
-                            zipFile.CreateEntryFromFile(xml_file, xml_file);
+                            _ = zipFile.CreateEntryFromFile(xml_file, xml_file);
                         }
                     }
 
                     foreach (var fi4 in di1.GetFiles("*.txt"))
                     {
                         var txt_file = fi4.Name;
-                        zipFile.CreateEntryFromFile(txt_file, txt_file);
+                        _ = zipFile.CreateEntryFromFile(txt_file, txt_file);
                     }
 
                     foreach (var fi5 in di1.GetFiles("*.pdb"))
                     {
                         var pdb_file = fi5.Name;
-                        zipFile.CreateEntryFromFile(pdb_file, pdb_file);
+                        _ = zipFile.CreateEntryFromFile(pdb_file, pdb_file);
                     }
 
                     foreach (var di2 in di1.GetDirectories())
@@ -91,13 +96,13 @@ namespace Elskom.Generic.Libs
                         foreach (var fi6 in di2.GetFiles("*.pdb"))
                         {
                             var pdb_file1 = fi6.Name;
-                            zipFile.CreateEntryFromFile(di2.Name + Path.DirectorySeparatorChar + pdb_file1, di2.Name + Path.DirectorySeparatorChar + pdb_file1);
+                            _ = zipFile.CreateEntryFromFile(di2.Name + Path.DirectorySeparatorChar + pdb_file1, di2.Name + Path.DirectorySeparatorChar + pdb_file1);
                         }
 
                         foreach (var fi7 in di2.GetFiles("*.dll"))
                         {
                             var dll_file1 = fi7.Name;
-                            zipFile.CreateEntryFromFile(di2.Name + Path.DirectorySeparatorChar + dll_file1, di2.Name + Path.DirectorySeparatorChar + dll_file1);
+                            _ = zipFile.CreateEntryFromFile(di2.Name + Path.DirectorySeparatorChar + dll_file1, di2.Name + Path.DirectorySeparatorChar + dll_file1);
                         }
 
                         foreach (var fi8 in di2.GetFiles("*.xml"))
@@ -105,14 +110,14 @@ namespace Elskom.Generic.Libs
                             var xml_file1 = fi8.Name;
                             if (!xml_file1.EndsWith(".CodeAnalysisLog.xml"))
                             {
-                                zipFile.CreateEntryFromFile(di2.Name + Path.DirectorySeparatorChar + xml_file1, di2.Name + Path.DirectorySeparatorChar + xml_file1);
+                                _ = zipFile.CreateEntryFromFile(di2.Name + Path.DirectorySeparatorChar + xml_file1, di2.Name + Path.DirectorySeparatorChar + xml_file1);
                             }
                         }
 
                         foreach (var fi9 in di2.GetFiles("*.txt"))
                         {
                             var txt_file1 = fi9.Name;
-                            zipFile.CreateEntryFromFile(di2.Name + Path.DirectorySeparatorChar + txt_file1, di2.Name + Path.DirectorySeparatorChar + txt_file1);
+                            _ = zipFile.CreateEntryFromFile(di2.Name + Path.DirectorySeparatorChar + txt_file1, di2.Name + Path.DirectorySeparatorChar + txt_file1);
                         }
                     }
                 }
