@@ -26,14 +26,14 @@ namespace Elskom.Generic.Libs
             }
 
             string outfilename;
-            if (args[1].StartsWith(".\\"))
+            if (args[1].StartsWith(".\\", StringComparison.Ordinal))
             {
                 // Replace spaces with periods.
                 outfilename = args[1].Replace(" ", ".");
                 args[1] = args[1].Replace(" ", ".");
                 args[1] = args[1].Replace(".\\", Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar);
             }
-            else if (args[1].StartsWith("./"))
+            else if (args[1].StartsWith("./", StringComparison.Ordinal))
             {
                 // Replace spaces with periods.
                 outfilename = args[1].Replace(" ", ".");
