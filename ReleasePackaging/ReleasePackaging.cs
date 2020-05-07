@@ -29,25 +29,25 @@ namespace Elskom.Generic.Libs
             if (args[1].StartsWith(".\\", StringComparison.Ordinal))
             {
                 // Replace spaces with periods.
-                outfilename = args[1].Replace(" ", ".");
-                args[1] = args[1].Replace(" ", ".");
-                args[1] = args[1].Replace(".\\", Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar);
+                outfilename = ReplaceStr(args[1], " ", ".", StringComparison.Ordinal);
+                args[1] = ReplaceStr(args[1], " ", ".", StringComparison.Ordinal);
+                args[1] = ReplaceStr(args[1], ".\\", Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar, StringComparison.Ordinal);
             }
             else if (args[1].StartsWith("./", StringComparison.Ordinal))
             {
                 // Replace spaces with periods.
-                outfilename = args[1].Replace(" ", ".");
-                args[1] = args[1].Replace(" ", ".");
-                args[1] = args[1].Replace("./", Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar);
+                outfilename = ReplaceStr(args[1], " ", ".", StringComparison.Ordinal);
+                args[1] = ReplaceStr(args[1], " ", ".", StringComparison.Ordinal);
+                args[1] = ReplaceStr(args[1], "./", Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar, StringComparison.Ordinal);
             }
             else
             {
                 // Replace spaces with periods.
-                outfilename = args[1].Replace(" ", ".");
-                args[1] = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + args[1].Replace(" ", ".");
+                outfilename = ReplaceStr(args[1], " ", ".", StringComparison.Ordinal);
+                args[1] = Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar + ReplaceStr(args[1], " ", ".", StringComparison.Ordinal);
             }
 
-            if (args[0].Equals("-p"))
+            if (args[0].Equals("-p", StringComparison.Ordinal))
             {
                 Console.WriteLine("Writing build files and debug symbol files to " + outfilename + ".");
                 if (File.Exists(args[1]))
@@ -73,7 +73,7 @@ namespace Elskom.Generic.Libs
                     foreach (var fi3 in di1.GetFiles("*.xml"))
                     {
                         var xml_file = fi3.Name;
-                        if (!xml_file.EndsWith(".CodeAnalysisLog.xml"))
+                        if (!xml_file.EndsWith(".CodeAnalysisLog.xml", StringComparison.Ordinal))
                         {
                             _ = zipFile.CreateEntryFromFile(xml_file, xml_file);
                         }
@@ -108,7 +108,7 @@ namespace Elskom.Generic.Libs
                         foreach (var fi8 in di2.GetFiles("*.xml"))
                         {
                             var xml_file1 = fi8.Name;
-                            if (!xml_file1.EndsWith(".CodeAnalysisLog.xml"))
+                            if (!xml_file1.EndsWith(".CodeAnalysisLog.xml", StringComparison.Ordinal))
                             {
                                 _ = zipFile.CreateEntryFromFile(di2.Name + Path.DirectorySeparatorChar + xml_file1, di2.Name + Path.DirectorySeparatorChar + xml_file1);
                             }
@@ -122,6 +122,19 @@ namespace Elskom.Generic.Libs
                     }
                 }
             }
+        }
+
+        private static string ReplaceStr(string str1, string str2, string str3, StringComparison comp)
+        {
+#if NETSTANDARD2_1 || NETCOREAPP2_1 || NETCOREAPP2_2 || NETCOREAPP3_0 || NETCOREAPP3_1
+            return str1.Replace(str2, str3, comp);
+#else
+            if (comp == StringComparison.Ordinal)
+            {
+            }
+
+            return str1.Replace(str2, str3);
+#endif
         }
     }
 }
