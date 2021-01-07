@@ -30,15 +30,13 @@ namespace Elskom.Generic.Libs
             {
                 // Replace spaces with periods.
                 outfilename = ReplaceStr(args[1], " ", ".", StringComparison.Ordinal);
-                args[1] = ReplaceStr(args[1], " ", ".", StringComparison.Ordinal);
-                args[1] = ReplaceStr(args[1], ".\\", Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar, StringComparison.Ordinal);
+                args[1] = ReplaceStr(ReplaceStr(args[1], " ", ".", StringComparison.Ordinal), ".\\", Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar, StringComparison.Ordinal);
             }
             else if (args[1].StartsWith("./", StringComparison.Ordinal))
             {
                 // Replace spaces with periods.
                 outfilename = ReplaceStr(args[1], " ", ".", StringComparison.Ordinal);
-                args[1] = ReplaceStr(args[1], " ", ".", StringComparison.Ordinal);
-                args[1] = ReplaceStr(args[1], "./", Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar, StringComparison.Ordinal);
+                args[1] = ReplaceStr(ReplaceStr(args[1], " ", ".", StringComparison.Ordinal), "./", Directory.GetCurrentDirectory() + Path.DirectorySeparatorChar, StringComparison.Ordinal);
             }
             else
             {
